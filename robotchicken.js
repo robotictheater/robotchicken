@@ -1,4 +1,15 @@
 exports={
+    button:{
+        active:false,
+        onPress:null,
+        pressed:()=>{
+            if(!exports.button.active && typeof exports.button.onPress==="function"){
+                exports.button.active=true;
+                exports.button.onPress();
+            }
+        }
+    },
+
     servo:{
         head:require('servoxt').connect(D5,{range:2}),
         f1:require('servoxt').connect(D4,{range:2}),
@@ -9,14 +20,19 @@ exports={
         wingLeft:require('servoxt').connect(D28,{range:2})
     },
 
-    home:()=>{
+    init:function(BTN){
+        exports.home();
+        setWatch(exports.button.pressed, BTN, { repeat: true, edge: 'rising',debounce: 100 });
+    },
+
+    home:(cb)=>{
         exports.servo.head.move(0.5,1500,500);
         exports.servo.f1.move(0.5,1500,500);
         exports.servo.f2.move(0.5,1500,500);
         exports.servo.waist.move(0.5,1500,500);
         exports.servo.tail.move(0.5,1500,500);
         exports.servo.wingRight.move(0.5,1500,500);
-        exports.servo.wingLeft.move(0.5,1500,500);
+        exports.servo.wingLeft.move(0.5,1500,500, ()=>{ if(typeof cb==="function"){ cb(); }});
 
     },
 
@@ -31,6 +47,22 @@ exports={
             exports.servo.f2.move(0.5,500,500,cb);
         });
     }, 
+
+    hand:(shape, time, holdTime, cb)=>{
+        switch(shape){
+            case "rock":
+                exports.servo.f1.move(0,time,holdTime);
+                exports.servo.f2.move(0,time,holdTime,cb);
+            break;
+            case "paper":
+                exports.servo.f1.move(0.5,time,holdTime);
+                exports.servo.f2.move(0.5,time,holdTime,cb);
+            break;
+            case "scissors":
+                exports.servo.f1.move(0,time,holdTime, cb);
+            break;
+        }
+    },
 
     rps:function(cb){
         let shoot=(cb)=>{
@@ -64,49 +96,40 @@ exports={
             });
         });
     },
-    
-    raiseLeft:(t, cb)=>{
-        exports.servo.wingLeft.move(1,t,100,()=>{
-            if(cb){cb();}
-        }); 
-    },
 
-    lowerLeft:(t, cb)=>{
-        exports.servo.wingLeft.move(0.5,t,100,()=>{
-            if(cb){cb();}
-        }); 
-    },
+    moveWing:(wing, pos, time, cb)=>{
+        let moveLeft=(p,t,c)=>{
+            p = E.clip(0.5+(0.5 * (p/100)), 0.5, 1);            
+            exports.servo.wingLeft.move(p,t,100,()=>{
+                if(typeof c==="function"){c();}
+            });
+        };
+        let moveRight=(p,t,c)=>{
+            p = E.clip(0.5-(0.5 * (p/100)), 0, 0.5);            
+            exports.servo.wingRight.move(p,t,100,()=>{
+                if(typeof c==="function"){c();}
+            });
+        };
 
-    raiseRight:(t, cb)=>{
-        exports.servo.wingRight.move(0,t,100,()=>{
-            if(cb){cb();}
-        }); 
-    },
-
-    lowerRight:(t, cb)=>{
-        exports.servo.wingRight.move(0.5,t,100,()=>{
-            if(cb){cb();}
-        }); 
-    },
-
-    flapLeft:(cb)=>{
-        exports.servo.wingLeft.move(1,500,100,()=>{
-            exports.servo.wingLeft.move(0.5,500,100,cb);
-        }); 
-    },
-
-    flapRight:(cb)=>{
-        exports.servo.wingRight.move(0,500,100,()=>{
-            exports.servo.wingRight.move(0.5,500,100,cb);
-        }); 
+        if(wing==="left"){
+            moveLeft(pos,time, cb);
+        }else if(wing==="right"){
+            moveRight(pos,time, cb);
+        }else{
+            moveLeft(pos,time);
+            moveRight(pos,time, cb);
+        }
     },
 
     flap:(flapTimes, cb, flapped)=>{
         if(!flapped){ flapped=0;}
         if(flapped<flapTimes){
             flapped++;
-            exports.flapRight();
-            exports.flapLeft(()=>{ exports.flap(flapTimes,cb,flapped); });
+            exports.moveWing("both",100,500,()=>{
+                exports.moveWing("both",0,500,()=>{                    
+                     exports.flap(flapTimes,cb,flapped); 
+                });
+            });            
         }else if(typeof cb==="function"){cb();}
         
     },
