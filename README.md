@@ -26,7 +26,7 @@ That's all there is to it.  Now you are ready to start programming some personal
 
 ### Home
   *  ```robotchicken.home()```
-    *  Move all servos to their home position.
+     *  Move all servos to their home position.
 
 
 ### Hand
