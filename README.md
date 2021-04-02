@@ -14,7 +14,7 @@ The robotchicken module has everything you need. All you have to do is assign it
 
 You can download the robotchicken.js file from this repo and include it in your Espruino IDE project, then include it in your program like so:
 
-```const robotchicken = require("robotchicken");```
+```const* robotchicken = require("robotchicken");```
 
 -or-
 
@@ -26,7 +26,14 @@ That's all there is to it!
 
 Now you are ready to give your creature some personality.
 
+------------------------------
+
 ## Programming Your Robot
+
+### Prerequisites
+
+ 1. You will need a recent version of the Chrome web browser
+ 2. Windows fully supports Web Bluetooth, if you are on a Mac or Linux machine, then follow these instructions: [http://www.espruino.com/Quick+Start+BLE#with-web-bluetooth](http://www.espruino.com/Quick+Start+BLE#with-web-bluetooth)
 
 ### Using The Robotic Theater Studio  (RTStudio)
 
