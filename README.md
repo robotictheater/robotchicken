@@ -28,13 +28,22 @@ Now you are ready to give your creature some personality.
 
 ## Programming Your Robot
 
-### Using The Robotic Theater Studio
+### Using The Robotic Theater Studio  (RTStudio)
 
-  *  Using the Chrome webbrowser, goto [https://robotictheater.com/studio](https://robotictheater.com/studio)
+RTStudio allows you to program your creature via your web browser using a block programming language similar to Scratch. 
+
+  *  Using the **Chrome** web browser, goto [https://robotictheater.com/studio](https://robotictheater.com/studio), add your blocks and click "Run" to bring your creation to life. 
+  *  You can also download some sample applications from the **/studio** folder in this repo.
+     *  Once downloaded you can import them into your "Program Library" in RTStudio
+
+
+### Using The Espruino IDE
 
 -------------------------------
 
 ## Built-in Expressions
+
+Each expression is also available in the RTStudio under the "Robot Chicken" category.
 
 ### Home
   *  ```robotchicken.home()```
