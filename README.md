@@ -20,13 +20,18 @@ The robotchicken module has everything in it to control all 7 servos manually as
 
 That's all there is to it.  Now you are ready to start programming some personality inot your creature. 
 
-### Built-in Expressions
+-------------------------------
 
-#### Home
-Move all servos to their home position.
-```robotchicken.home()```
+## Built-in Expressions
 
-#### Hand
-Move all servos to their home position.
-```robotchicken.hand(shape, moveTime, holdtime, cb)```
- - **shape** - What shape do you want the hand to form. The availble shapes are: (rock  |  paper  |  scissors)
+### Home
+  *  ```robotchicken.home()```
+    *  Move all servos to their home position.
+
+
+### Hand
+  *  ```robotchicken.hand(shape, moveTime, holdtime, callback)```
+     *  **shape** - What shape do you want the hand to form. The availble shapes are: (rock  |  paper  |  scissors)
+     *  **moveTime** - The number of milliseconds to take to complete the movement.
+     *  **holdTime** - The number of milliseconds to hold the shape before the servos release
+     *  **callback** - The function to call when the movement is complete.  This happens after the moveTime and holdTime have elapsed.
