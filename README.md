@@ -4,21 +4,33 @@ Robot Chicken is an easy to build animatronic creature that contains 7 servos wh
 
 ## GETTING STARTED
 
-### Build Instructions
+### Robot Construction
 You can find the build instructions over on Make:Projects
 
 ### Espruino Code
-The robotchicken module has everything in it to control all 7 servos manually as well as a set of ready-built expressions. See the list below. 
+The robotchicken module has everything you need. All you have to do is assign it to a variable called ```robotchicken```.
 
-**Include it from your Espruino IDE's local projects folder**
+**Include it from your Espruino IDE's local projects folder:**
+
+You can download the robotchicken.js file from this repo and include it in your Espruino IDE project, then include it in your program like so:
+
 ```const robotchicken = require("robotchicken");```
 
 -or-
 
-**Include it directly from the github repo**
+**Include it directly from the github repo:**
+
 ```const robotchicken = require("https://raw.githubusercontent.com/robotictheater/robotchicken/main/robotchicken.js");```
 
-That's all there is to it.  Now you are ready to start programming some personality inot your creature. 
+That's all there is to it!
+
+Now you are ready to give your creature some personality.
+
+## Programming Your Robot
+
+### Using The Robotic Theater Studio
+
+  *  Using the Chrome webbrowser, goto [https://robotictheater.com/studio](https://robotictheater.com/studio)
 
 -------------------------------
 
@@ -30,7 +42,7 @@ That's all there is to it.  Now you are ready to start programming some personal
 
 
 ### Hand
-  *  ```robotchicken.hand(shape, moveTime, holdtime, callback)```
+  *  ```robotchicken.hand(shape, moveTime, holdTime, callback)```
      *  **shape** - What shape do you want the hand to form. The availble shapes are: (rock  |  paper  |  scissors)
      *  **moveTime** - The number of milliseconds to take to complete the movement.
      *  **holdTime** - The number of milliseconds to hold the shape before the servos release
